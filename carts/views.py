@@ -27,8 +27,8 @@ def add_cart(request, product_id):
 
     
     try:
-        # cart = Cart.objects.get(cart_id=_cart_id(request))
-        cart = Cart.objects.filter(cart_id=_cart_id(request)).first() # get the cart using the cart_id present in the session
+        cart = Cart.objects.get(cart_id=_cart_id(request))
+        # cart = Cart.objects.filter(cart_id=_cart_id(request)).first() # get the cart using the cart_id present in the session
     except Cart.DoesNotExist:
         cart = Cart.objects.create(
             cart_id = _cart_id(request)
@@ -79,8 +79,8 @@ def add_cart(request, product_id):
 
 
 def remove_cart(request, product_id, cart_item_id):
-    # cart = Cart.objects.get(cart_id=_cart_id(request))
-    cart = Cart.objects.filter(cart_id=_cart_id(request)).first()
+    cart = Cart.objects.get(cart_id=_cart_id(request))
+    # cart = Cart.objects.filter(cart_id=_cart_id(request)).first()
     product = get_object_or_404(Product, id=product_id)
     try:
         cart_item = CartItem.objects.get(product=product, cart=cart, id=cart_item_id)
@@ -128,3 +128,10 @@ def cart(request, total=0, quantity=0, cart_items=None):
         'grand_total': grand_total,
     }
     return render(request, 'store/cart.html', context)
+
+
+# def place_order(request):
+#     return render(request, 'store/place-order.html')
+
+# def order_created(request):
+#     return HttpResponse("Your order is Placed successfully. ")
