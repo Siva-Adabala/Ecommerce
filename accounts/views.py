@@ -59,6 +59,11 @@ def login(request):
         user = auth.authenticate(email=email, password=password)
 
         if user is not None:
+            try:
+                cart = Cart.objects.get
+            except:
+                pass
+
             auth.login(request, user)
             messages.success(request, 'You are now Logined In')
             return redirect('dashboard')
